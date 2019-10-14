@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="171214" started-at="2019-10-14T08:01:58Z" finished-at="2019-10-14T08:04:50Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="171214" started-at="2019-10-14T08:01:58Z" finished-at="2019-10-14T08:04:50Z">
+      <class name="flows.CebuFlow">
+        <test-method status="PASS" signature="test()[pri:0, instance:flows.CebuFlow@1d371b2d]" name="test" duration-ms="171183" started-at="2019-10-14T08:01:58Z" finished-at="2019-10-14T08:04:50Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+      </class> <!-- flows.CebuFlow -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

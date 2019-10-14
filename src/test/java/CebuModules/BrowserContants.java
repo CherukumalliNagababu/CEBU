@@ -12,7 +12,7 @@ public class BrowserContants {
 	public static final String WAIT_MEDIUM = "10000";
 	public static final String WAIT_LONG = "15000";
 	public static final String WAIT_VERY_LONG = "35000";
-	public static final String WAIT_EXCEPTIONAL_CASES = "45000";
+	public static final String WAIT_EXCEPTIONAL_CASES = "55000";
 	public static final String WAIT_FOR_TENMIN = "600000";
 	
 	public static final String PRD_API_URL = "http://commonrehlat.azurewebsites.net/v1/scraping";

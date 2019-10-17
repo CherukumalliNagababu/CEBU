@@ -26,8 +26,10 @@ import org.testng.annotations.Test;
 
 import com.google.gson.Gson;
 
+import CebuModules.BrowserContants;
 import CebuModules.CebuAllModules;
 import PageObjects.BaseClass;
+import PageObjects.Database;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -42,16 +44,57 @@ import junit.framework.Assert;
 
 
 
+
 public class CebuSRP {
 	static WebDriver driver;
-	private int iTestCaseRow;
 	boolean status;
-
+	private Database PnrDetails;
 	
 	@Test
 	public void test() throws Exception {
 		
+
+		if (BrowserContants.ENV.equals("PRD")) {
+			RestAssured.baseURI = BrowserContants.PRD_API_URL;
+			System.out.println(BrowserContants.PRD_API_URL);
+			
+		} else if (BrowserContants.ENV.equals("STG")) {
+			RestAssured.baseURI = BrowserContants.STG_API_URL;
+			System.out.println(BrowserContants.STG_API_URL);
+		}
 		
+		
+		
+		RequestSpecification request = RestAssured.given();
+		request.header("Content-Type", "text/json");
+		Response response = request.get("/Get5JRoutes");
+		System.out.println("Response body: " + response.body().asString());
+		String s=response.body().asString();
+		System.out.println(s);
+		int statusCode = response.getStatusCode();
+		System.out.println("The status code recieved: " + statusCode);
+		
+		Gson g = new Gson();
+		Database[] mcArray = g.fromJson(s, Database[].class);
+		List<Database> p = Arrays.asList(mcArray);
+		for(Database data:p){
+			try{
+				
+				
+				Date depDate=new SimpleDateFormat("dd MMM yyyy").parse(data.DepartureDate);  
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String strDate= formatter.format(depDate);
+				
+				System.out.println("strDate :"+strDate);
+				
+				//String cebuApiUrl="https://book.cebupacificair.com/Flight/Select?o1="+data.From+"&d1="+data.To+"&o2=&d2=&dd1="+strDate +"&ADT=1&CHD=0&INF=0&inl=0&pos=cebu.us&culture=&p=";
+				String cebuApiUrl="https://book.cebupacificair.com/Flight/InternalSelect?o1=MNL&d1=MEL&o2=&d2=&dd1=2019-10-22&p=&ADT=1&CHD=0&INF=0&inl=0&s=true&mon=true";
+				
+				System.out.println("API URL"+cebuApiUrl);
+				
+				PnrDetails=data;
+				
+            
 		
 		
 		
@@ -63,19 +106,24 @@ public class CebuSRP {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			// Log.info("Implicit wait applied on the driver for 10 seconds");
 			driver.manage().deleteAllCookies();
-			driver.get("https://book.cebupacificair.com/Flight/Select?o1=HKG&d1=MEL&o2=&d2=&dd1=2019-10-21&ADT=1&CHD=0&INF=0&inl=0&pos=cebu.us&culture=&p=");
+			driver.get(cebuApiUrl);
 			new BaseClass(driver);
 			
 			
-			CebuAllModules.Flight_Srp_Details(driver);
+			CebuAllModules.Flight_Srp_Details(driver,PnrDetails);
 		
 			
-			//driver.quit();
+			driver.quit();
 			
 		
 			}
 		
-			
+			catch(Exception e)
+			{
+				
+			}
+		}
+	}
 	
 	}	
 		

@@ -1,5 +1,6 @@
 package CebuModules;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,21 @@ public class CebuAllModules extends passengersDetails{
 	
 	
 	
-	public static void Flight_Srp_Details(WebDriver driver) throws InterruptedException
+	public static void Flight_Srp_Details(WebDriver driver,Database PnrDetails) throws InterruptedException, IOException
 	{
 		//table[@id='depart-table']//tbody/tr
 		Thread.sleep(10000);
 		
+		String From=PnrDetails.From;
+		String To=PnrDetails.To;
+		String DepDate=PnrDetails.DepartureDate;
+		
+		String FlightNumberFirst;
+		String FlightNumberSecond = null;
+		String FirstFlightStartTime;
+		String FirstFlightStartTime_WithOutH;
+		String FirstFlightEndTime;
+		String FirstFlightEndTime_WithOutH;
 		String SecondFlightStartTime;
 		String SecondFlightStartTime_WithOutH = null;
 		String SecondFlightEndTime = null;
@@ -39,21 +50,39 @@ public class CebuAllModules extends passengersDetails{
 		 
 		 String SecondFlightAirPort_1= null;
 		 String SecondFlightAirPort_2= null;
+		 String FirstFlightEndTime_PlusOne;
+		 String SecondFlightEndTime_PlusOne;
 		 
 		 String FirstFlightTime= null;
 		 String SecondFlightTime= null;
+		 String FirstFlightEndTime_Next = null;
+		 String SecondFlightEndTime_Next = null;
 		 
 		 String FlyOnlyTotalAmount = null;
 		
 		 List<CBFlightDetails> finalList =  new ArrayList<CBFlightDetails>();
-		 
+		
+		
 		List<WebElement> element=driver.findElements(By.xpath("//table[@id='depart-table']//tbody/tr"));
+		System.out.println("Element Size:"+element.size());
+		
 		for(WebElement e:element)
 		{
-			CBFlightDetails currentFirstFlight = new CBFlightDetails();
-			CBFlightDetails currentSecondFlight = new CBFlightDetails();
+			CBFlightDetails cbFd = new CBFlightDetails();
+			cbFd.Flight = new ArrayList<CBFlight>();
+			//List<CBFlight> cbFlight = new ArrayList<CBFlight>();
+			
+			CBFlight currentFirstFlight = new CBFlight();
+			CBFlight currentSecondFlight = new CBFlight();
 			
 			String AllData=e.getText();
+			System.out.println("Data Print:"+AllData);
+			String NoFlights="Sorry, flights for this day are either sold out or unavailable. Please choose another date, or search again.";
+			if(NoFlights.equals(AllData))
+			{
+				System.out.println("No Flights Found");
+			}
+			else{
 			String str1=AllData.replaceAll("[\r\n]+", ",");
 			
 			
@@ -63,21 +92,44 @@ public class CebuAllModules extends passengersDetails{
 			}
 			
 			else{
+				
+			 
 			
+			String FlightstartTime= str1.split(",")[1];
+			String SingleFlight= FlightstartTime.split(" ")[1];
 			
-			String FlightNumberFirst= str1.split(",")[0];
-			String FlightNumberSecond= str1.split(",")[1];
-			
-			String FirstFlightStartTime= str1.split(",")[2];
-			String FirstFlightStartTime_WithOutH= FirstFlightStartTime.split(" ")[0];
-			String FirstFlightEndTime= str1.split(",")[3];
-			String FirstFlightEndTime_WithOutH= FirstFlightEndTime.split(" ")[0];
-			String FirstFlightEndTime_PlusOne = "0";
-			String SecondFlightEndTime_PlusOne="0";
-			
-			
-			String FirstFlightEndTime_Next= str1.split(",")[4];
-			String SecondFlightEndTime_Next= str1.split(",")[6];
+			if("H".equals(SingleFlight))
+			{
+				 FlightNumberFirst= str1.split(",")[0];
+				  FirstFlightStartTime= str1.split(",")[1];
+				 FirstFlightStartTime_WithOutH= FirstFlightStartTime.split(" ")[0];
+				  FirstFlightEndTime= str1.split(",")[2];
+				 FirstFlightEndTime_WithOutH= FirstFlightEndTime.split(" ")[0];
+				 FirstFlightAirPort_1=str1.split(",")[3];
+				  FirstFlightAirPort_2=str1.split(",")[4];
+				  FirstFlightTime=str1.split(",")[5];
+				  
+				  String FlyOnlyAmount=str1.split(" ")[5];
+				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
+				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
+				  FlyOnlyTotalAmount=FlyOnlyTotalAmount.replaceAll("This", "");
+				 
+			}
+			else{
+				FlightNumberFirst= str1.split(",")[0];
+				 FlightNumberSecond= str1.split(",")[1];
+				
+				 FirstFlightStartTime= str1.split(",")[2];
+				 FirstFlightStartTime_WithOutH= FirstFlightStartTime.split(" ")[0];
+				 FirstFlightEndTime= str1.split(",")[3];
+				 FirstFlightEndTime_WithOutH= FirstFlightEndTime.split(" ")[0];
+				 
+				 FirstFlightEndTime_PlusOne = "0";
+				 SecondFlightEndTime_PlusOne="0";
+				
+				 FirstFlightEndTime_Next= str1.split(",")[4];
+				 SecondFlightEndTime_Next= str1.split(",")[6];
+			}
 			if("*Next Day Arrival".equals(FirstFlightEndTime_Next))
 			{
 				 FirstFlightEndTime_DayChange= "+1";
@@ -99,7 +151,7 @@ public class CebuAllModules extends passengersDetails{
 				  String FlyOnlyAmount=str1.split(" ")[12];
 				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
-				 
+				  FlyOnlyTotalAmount=FlyOnlyTotalAmount.replaceAll("This", "");
 				 
 				 
 			}
@@ -125,6 +177,8 @@ public class CebuAllModules extends passengersDetails{
 				  String FlyOnlyAmount=str1.split(" ")[12];
 				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
+				  FlyOnlyTotalAmount=FlyOnlyTotalAmount.replaceAll("This", "");
+				  
 				
 			}
 			
@@ -176,9 +230,43 @@ public class CebuAllModules extends passengersDetails{
 			currentFirstFlight.InfantTaxes="";
 			currentFirstFlight.TotalApiFare="";
 			
+			//cbFlight.add(currentFirstFlight);
+			cbFd.Flight.add(currentFirstFlight);
+			if("H".equals(SingleFlight))
+			{
+				
+			}
+			else{
+			currentSecondFlight.Fltnum=FlightNumberSecond;
+			currentSecondFlight.StartAirp =SecondFlightAirPort_1;
+			currentSecondFlight.EndAirp=SecondFlightAirPort_2;
+			currentSecondFlight.StartDt="";
+			currentSecondFlight.DayChg = SecondFlightEndTime_DayChange;
+			currentSecondFlight.JrnyTm=SecondFlightTime;
+			currentSecondFlight.StartTm=SecondFlightStartTime_WithOutH;
+			currentSecondFlight.EndTm=SecondFlightEndTime_WithOutH;
+			currentSecondFlight.AdultBasePrice=FlyOnlyTotalAmount;
+			currentSecondFlight.AdultTaxes ="";
+			currentSecondFlight.ChildBasePrice=FlyOnlyTotalAmount;
+			currentSecondFlight.ChildTaxes="";
+			currentSecondFlight.InfantBasePrice ="56";
+			currentSecondFlight.InfantTaxes="";
+			currentSecondFlight.TotalApiFare="";
+			
+			// cbFlight.add(currentSecondFlight);
+			cbFd.Flight.add(currentSecondFlight);
+			
+			}
+			
+			finalList.add(cbFd);
+			
+		}
+			
+			ApiMethods.sendResults(From, To,DepDate, finalList);
+			}
 		}
 		}
-	}
+	
 	
 	
 	public static void tripType() throws Exception

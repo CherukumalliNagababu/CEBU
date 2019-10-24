@@ -83,12 +83,15 @@ public class CebuSRP {
 				
 				Date depDate=new SimpleDateFormat("dd MMM yyyy").parse(data.DepartureDate);  
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
 				String strDate= formatter.format(depDate);
+				String YearMDate= formatter2.format(depDate);
 				
 				System.out.println("strDate :"+strDate);
+				System.out.println("YearMonthDAte :"+YearMDate);
 				
 				//String cebuApiUrl="https://book.cebupacificair.com/Flight/Select?o1="+data.From+"&d1="+data.To+"&o2=&d2=&dd1="+strDate +"&ADT=1&CHD=0&INF=0&inl=0&pos=cebu.us&culture=&p=";
-				String cebuApiUrl="https://book.cebupacificair.com/Flight/InternalSelect?o1=MNL&d1=MEL&o2=&d2=&dd1=2019-10-22&p=&ADT=1&CHD=0&INF=0&inl=0&s=true&mon=true";
+				String cebuApiUrl="https://book.cebupacificair.com/Flight/InternalSelect?o1=MNL&d1=MEL&o2=&d2=&dd1=2019-10-25&p=&ADT=1&CHD=0&INF=0&inl=0&s=true&mon=true";
 				
 				System.out.println("API URL"+cebuApiUrl);
 				
@@ -106,11 +109,15 @@ public class CebuSRP {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			// Log.info("Implicit wait applied on the driver for 10 seconds");
 			driver.manage().deleteAllCookies();
-			driver.get(cebuApiUrl);
+			//driver.get(cebuApiUrl);
+			driver.get("https://partners.cebupacificair.com");
 			new BaseClass(driver);
 			
-			
-			CebuAllModules.Flight_Srp_Details(driver,PnrDetails);
+			CebuAllModules.Agent_Login();
+			CebuAllModules.tripType_SRP();
+			CebuAllModules.enterFromAndTo_SRP(data.From,data.To);
+			CebuAllModules.enterDateAndNumberOfPassenger_SRP();
+			CebuAllModules.Flight_Srp_Details(driver,PnrDetails,YearMDate,depDate);
 		
 			
 			driver.quit();

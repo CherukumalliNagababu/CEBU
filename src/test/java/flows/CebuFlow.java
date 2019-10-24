@@ -64,7 +64,7 @@ public class CebuFlow {
 			// Log.info("Implicit wait applied on the driver for 10 seconds");
 			driver.manage().deleteAllCookies();
 			//driver.get("https://www.cebupacificair.com/en-us");
-			driver.get("https://book.cebupacificair.com/Flight/Select?o1=HKG&d1=MEL&o2=&d2=&dd1=2019-10-21&ADT=2&CHD=0&INF=0&inl=0&pos=cebu.us&culture=&p=");
+			driver.get("https://book.cebupacificair.com/Flight/Select?o1=HKG&d1=MEL&o2=&d2=&dd1=2019-10-23&ADT=2&CHD=0&INF=0&inl=0&pos=cebu.us&culture=&p=");
 			
 			new BaseClass(driver);
 			

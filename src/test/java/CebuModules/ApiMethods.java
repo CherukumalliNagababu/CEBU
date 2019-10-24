@@ -23,16 +23,16 @@ public class ApiMethods {
 	{
 	
 		
-		/*if(BrowserContants.ENV.equals("PRD"))
+		if(BrowserContants.ENV.equals("PRD"))
 		{
 			RestAssured.baseURI =BrowserContants.PRD_API_URL;
 		}
 		else if(BrowserContants.ENV.equals("STG"))
 		{
 			RestAssured.baseURI =BrowserContants.STG_API_URL;
-		}*/
+		}
 		
-		RestAssured.baseURI =BrowserContants.STG_API_URL;
+		//RestAssured.baseURI =BrowserContants.STG_API_URL;
 		//RestAssured.baseURI ="http://commonrehlat.azurewebsites.net/v1/scraping";
 		RequestSpecification request = RestAssured.given();
 		request.header("Content-Type", "text/json");

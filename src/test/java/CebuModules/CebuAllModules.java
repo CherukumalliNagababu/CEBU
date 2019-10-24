@@ -1,7 +1,10 @@
 package CebuModules;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -20,10 +23,42 @@ import PageObjects.Database;
 
 public class CebuAllModules extends passengersDetails{
 	static WebDriver driver;
+	public static String status;
 	
+	public static String GetMins(String FlightTime)
+	{
+		FlightTime = FlightTime.replace(" ","");
+		FlightTime = FlightTime.toLowerCase();
+		String[] jrnyTmHrs = FlightTime.split("h");
+		int hrs = Integer.parseInt(jrnyTmHrs[0]);
+		hrs = hrs*60;
+		String[] minsstr =  jrnyTmHrs[1].split("m");
+		int mins = Integer.parseInt(minsstr[0]);
+		mins = mins + hrs;
+		return mins +"";
+	}
+	public static String GetEndDate(Date depDate, String dayChng)
+	{
+		String result = "";
+		if(dayChng != null && dayChng != "" && dayChng != "0" ){
+			
+		Calendar c = Calendar.getInstance();
+		c.setTime(depDate);
+		c.add(Calendar.DATE, 1);
+		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
+		String strDate= formatter2.format(c.getTime());
+		result = strDate;
+	}
+	else
+	{
+		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
+		String strDate= formatter2.format(depDate);
+		result = strDate;
+	}
+		return result;
+	}
 	
-	
-	public static void Flight_Srp_Details(WebDriver driver,Database PnrDetails) throws InterruptedException, IOException
+	public static void Flight_Srp_Details(WebDriver driver,Database PnrDetails,String YMD,Date searchDate) throws InterruptedException, IOException
 	{
 		//table[@id='depart-table']//tbody/tr
 		Thread.sleep(10000);
@@ -31,7 +66,7 @@ public class CebuAllModules extends passengersDetails{
 		String From=PnrDetails.From;
 		String To=PnrDetails.To;
 		String DepDate=PnrDetails.DepartureDate;
-		
+		System.out.println("DepartureDate DepartureDate DepartureDate :"+PnrDetails.DepartureDate);
 		String FlightNumberFirst;
 		String FlightNumberSecond = null;
 		String FirstFlightStartTime;
@@ -63,7 +98,8 @@ public class CebuAllModules extends passengersDetails{
 		 List<CBFlightDetails> finalList =  new ArrayList<CBFlightDetails>();
 		
 		
-		List<WebElement> element=driver.findElements(By.xpath("//table[@id='depart-table']//tbody/tr"));
+		//List<WebElement> element=driver.findElements(By.xpath("//table[@id='depart-table']//tbody/tr"));
+		List<WebElement> element=driver.findElements(By.xpath("//div[1]/div[4]//table[@class='table']//tbody/tr"));
 		System.out.println("Element Size:"+element.size());
 		
 		for(WebElement e:element)
@@ -113,6 +149,7 @@ public class CebuAllModules extends passengersDetails{
 				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
 				  FlyOnlyTotalAmount=FlyOnlyTotalAmount.replaceAll("This", "");
+				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("Regular", "").replaceAll("Promo", "");
 				 
 			}
 			else{
@@ -123,6 +160,27 @@ public class CebuAllModules extends passengersDetails{
 				 FirstFlightStartTime_WithOutH= FirstFlightStartTime.split(" ")[0];
 				 FirstFlightEndTime= str1.split(",")[3];
 				 FirstFlightEndTime_WithOutH= FirstFlightEndTime.split(" ")[0];
+				 
+				 SecondFlightStartTime= str1.split(",")[4];
+				 SecondFlightStartTime_WithOutH= SecondFlightStartTime.split(" ")[0];
+				 SecondFlightEndTime= str1.split(",")[5];
+				 SecondFlightEndTime_WithOutH= SecondFlightEndTime.split(" ")[0];
+				 FirstFlightEndTime_DayChange=null;
+				 SecondFlightEndTime_DayChange= null;
+				 
+				 FirstFlightAirPort_1=str1.split(",")[6];
+				 FirstFlightAirPort_2=str1.split(",")[7];
+				 SecondFlightAirPort_1=str1.split(",")[8];
+				 SecondFlightAirPort_2=str1.split(",")[9];
+				 
+				 FirstFlightTime=str1.split(",")[10];
+				  SecondFlightTime=str1.split(",")[11];
+				  
+				  String FlyOnlyAmount=str1.split(" ")[11];
+				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
+				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
+				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("This", "");
+				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("Regular", "").replaceAll("Promo", "");
 				 
 				 FirstFlightEndTime_PlusOne = "0";
 				 SecondFlightEndTime_PlusOne="0";
@@ -151,7 +209,8 @@ public class CebuAllModules extends passengersDetails{
 				  String FlyOnlyAmount=str1.split(" ")[12];
 				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
-				  FlyOnlyTotalAmount=FlyOnlyTotalAmount.replaceAll("This", "");
+				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("This", "");
+				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("Regular", "").replaceAll("Promo", "");
 				 
 				 
 			}
@@ -177,7 +236,8 @@ public class CebuAllModules extends passengersDetails{
 				  String FlyOnlyAmount=str1.split(" ")[12];
 				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
-				  FlyOnlyTotalAmount=FlyOnlyTotalAmount.replaceAll("This", "");
+				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("This", "");
+				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("Regular", "").replaceAll("Promo", "");
 				  
 				
 			}
@@ -211,12 +271,12 @@ public class CebuAllModules extends passengersDetails{
 			currentFirstFlight.Class="Economy";
 			currentFirstFlight.StartAirp =FirstFlightAirPort_1;
 			currentFirstFlight.EndAirp=FirstFlightAirPort_2;
-			currentFirstFlight.StartDt="";
+			currentFirstFlight.StartDt=YMD;
 			currentFirstFlight.ADTBG="";
 			currentFirstFlight.CHDBG="";
 		    currentFirstFlight.INFBG="";
 			currentFirstFlight.DayChg = FirstFlightEndTime_DayChange;
-			currentFirstFlight.JrnyTm=FirstFlightTime;
+			currentFirstFlight.JrnyTm=GetMins(FirstFlightTime);
 			currentFirstFlight.StartTm=FirstFlightStartTime_WithOutH;
 			currentFirstFlight.EndTm=FirstFlightEndTime_WithOutH;
 			currentFirstFlight.NoOfSeats="99";
@@ -240,9 +300,9 @@ public class CebuAllModules extends passengersDetails{
 			currentSecondFlight.Fltnum=FlightNumberSecond;
 			currentSecondFlight.StartAirp =SecondFlightAirPort_1;
 			currentSecondFlight.EndAirp=SecondFlightAirPort_2;
-			currentSecondFlight.StartDt="";
+			currentSecondFlight.StartDt= GetEndDate(searchDate, FirstFlightEndTime_DayChange);
 			currentSecondFlight.DayChg = SecondFlightEndTime_DayChange;
-			currentSecondFlight.JrnyTm=SecondFlightTime;
+			currentSecondFlight.JrnyTm=GetMins(SecondFlightTime);
 			currentSecondFlight.StartTm=SecondFlightStartTime_WithOutH;
 			currentSecondFlight.EndTm=SecondFlightEndTime_WithOutH;
 			currentSecondFlight.AdultBasePrice=FlyOnlyTotalAmount;
@@ -268,6 +328,1183 @@ public class CebuAllModules extends passengersDetails{
 		}
 	
 	
+	public static void Agent_Login() throws Exception
+	{
+		CebuPage.Agent_UserName().sendKeys("JM073KWI");
+		CebuPage.Agent_PWD().sendKeys("abTT*2019");
+		CebuPage.Agent_Login_Btn().click();
+	}
+	public static void tripType_2(String TripType ) throws Exception
+	{
+		try {
+			if ("OneWay".equals(TripType)) {
+				// Thread.sleep(10000);
+				CebuPage.oneyWay2().click();
+			} else if ("RoundTrip".equals(TripType)) {
+				System.out.println("Select Round Trip");
+			}
+		} catch (Exception e) {
+			status = "TripType error";
+			//PageUtils.getScreenShot(PnrDetails.PnrId, driver);
+			driver.quit();
+
+		}
+		//PageUtils.getScreenShot(PnrDetails.PnrId, driver);
+
+	}
+	public static void tripType_SRP() throws Exception
+	{
+		
+				CebuPage.oneyWay2().click();
+			
+	
+	}
+	public static void enterFromAndTo_SRP(String From,String To) throws Exception
+	{
+		
+		CebuPage.Clk_From2().click();
+		CebuPage.Clk_From2().sendKeys("HKG");
+		CebuPage.Clk_From2().sendKeys(Keys.ARROW_DOWN);
+		Thread.sleep(1000);
+		CebuPage.Clk_From2().sendKeys(Keys.ENTER);
+		
+		PageUtils.isElementVisibil(driver, CebuPage.Clk_To2());
+		CebuPage.Clk_To2().click();
+		Thread.sleep(1000);
+		CebuPage.Clk_To2().sendKeys("MNL");
+		CebuPage.Clk_To2().sendKeys(Keys.ARROW_DOWN);
+		Thread.sleep(1000);
+		CebuPage.Clk_To2().sendKeys(Keys.TAB);
+		
+
+	}
+	public static void enterFromAndTo_2() throws Exception
+	{
+		
+		CebuPage.Clk_From2().click();
+		CebuPage.Clk_From2().sendKeys("HKG");
+		CebuPage.Clk_From2().sendKeys(Keys.ARROW_DOWN);
+		Thread.sleep(1000);
+		CebuPage.Clk_From2().sendKeys(Keys.ENTER);
+		
+		PageUtils.isElementVisibil(driver, CebuPage.Clk_To2());
+		CebuPage.Clk_To2().click();
+		Thread.sleep(1000);
+		CebuPage.Clk_To2().sendKeys("MNL");
+		CebuPage.Clk_To2().sendKeys(Keys.ARROW_DOWN);
+		Thread.sleep(1000);
+		CebuPage.Clk_To2().sendKeys(Keys.TAB);
+		
+
+	}
+	public static void enterDateAndNumberOfPassenger_SRP() throws Exception
+	{
+		
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_VERY_SMALL);
+		
+		CebuPage.header_Month_D_2("October 2019");
+		Thread.sleep(1000);
+		CebuPage.ScrollDown();
+		CebuPage.select_Date_D_2("25");
+		
+		
+		
+		
+		
+		
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		CebuPage.btn_FindFlight2().click();
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL);
+         
+		}
+	
+	public static void enterDateAndNumberOfPassenger_2(String TripType) throws Exception
+	{
+		
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_VERY_SMALL);
+		if ("OneWay".equals(TripType)) {
+		CebuPage.header_Month_D_2("October 2019");
+		Thread.sleep(1000);
+		CebuPage.ScrollDown();
+		CebuPage.select_Date_D_2("23");
+		}
+		else if ("RoundTrip".equals(TripType)) {
+			CebuPage.header_Month_D_2("October 2019");
+			Thread.sleep(1000);
+			CebuPage.ScrollDown();
+			CebuPage.select_Date_D_2("25");
+			Thread.sleep(1000);
+			CebuPage.btn_Calender_R_Clk().click();
+			Thread.sleep(1000);
+			CebuPage.header_Month_D_2("October 2019");
+			Thread.sleep(1000);
+			CebuPage.ScrollDown();
+			CebuPage.select_Date_D_2("25");
+			
+		}
+		Thread.sleep(1000);
+		
+		
+		int Adult = Integer.parseInt("3");
+		System.out.println("Adult:"+Adult);
+		for (int i = 0; i < Adult - 1; i++) {
+			CebuPage.adult_increase2().click();
+		}
+		int Child = Integer.parseInt("3");
+		System.out.println("Child:"+Child);
+		for (int i = 0; i < Child; i++) {
+			CebuPage.child_increase2().click();
+
+		}
+		int infant = Integer.parseInt("3");
+		System.out.println("infant:"+infant);
+
+		for (int i = 0; i < infant; i++) {
+			CebuPage.infant_increase2().click();
+		}
+		
+         PageUtils.waitForFixedTime(BrowserContants.WAIT_VERY_SMALL_ENGINE);
+        
+		if (infant <= 0) {
+			
+			CebuPage.btn_FindFlight2().click();
+			PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL);
+		} else {
+			CebuPage.btn_FindFlight2().click();
+			PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL);
+			CebuPage.btn_Continue_selectInfant().click();
+			PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL);
+		}
+         
+		}
+	
+	public static void FlightNumberDetails_2(String TripType) throws Exception
+	{
+		
+		if ("OneWay".equals(TripType)) {
+		CebuPage.flight_Numbers2_DEP("5J 113","5J 49");
+		}
+		else if ("RoundTrip".equals(TripType)) {
+			
+			CebuPage.flight_Numbers2_DEP("5J 241","5J 554");
+			Thread.sleep(3000);
+			CebuPage.flight_Numbers2_RET("DG 6507","5J 240");
+		}
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL);
+		String WebSiteAmount=CebuPage.WebSite_Amount2().getText();
+		WebSiteAmount=WebSiteAmount.split(" ")[1];
+		String WEB = WebSiteAmount.replaceAll(",", "");
+		//System.out.println("WebSite Amount is:"+WEB);
+		float WEBAMOUNT = Float.parseFloat(WEB);
+		int currency=12000;
+		
+		if (currency >= WEBAMOUNT) {
+           System.out.println("API Amount:" + currency);
+           System.out.println("WebSite Amount:" +WEBAMOUNT);
+			//System.out.println("API Amount:" + PnrDetails.Amount);
+			//System.out.println("WebSite Amount:" + WebSiteAmount);
+		}
+		else
+		{
+			
+			//passengersDetails.returnStatus_fail(PnrDetails.Domain,PnrDetails.PnrId," "+WebSiteAmount+" Website amount is greater than "+ PnrDetails.Amount +" API amount");
+			//System.out.println(WebSiteAmount+" Website amount is greater than "+ PnrDetails.Amount +" API amount");
+			//driver.quit();
+		}
+		CebuPage.btn_Continue_Srp2().click();
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL);
+		Imp_Alert2();
+	}
+	
+	
+	public static void Imp_Alert2() throws Exception
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL);
+		try{
+		CebuPage.btn_Alert_close2().click();
+		}
+		catch(Exception e)
+		{
+			
+		}
+		
+	}
+	
+	public static void enterPassengerDetails_2() throws Exception
+
+	{
+		
+		
+		
+		String numofAdults ="3";
+		String numofChilds = "3";
+		String numofInfants = "3";
+		
+		if (numofAdults.equals("1")) {
+			//PageUtils.getScreenShot(PnrDetails.PnrId, driver);
+			passengersDetails.adult2_1();
+			
+		
+		} else if (numofAdults.equals("2")) {
+			System.out.println("Adults 2-----------------");
+			passengersDetails.adult2_1();
+			passengersDetails.adult2_2();
+		}
+		else if (numofAdults.equals("3")) {
+			
+			passengersDetails.adult2_1();
+			passengersDetails.adult2_2();
+			passengersDetails.adult2_3();
+		}
+		else if (numofAdults.equals("4")) {
+			passengersDetails.adult2_1();
+			passengersDetails.adult2_2();
+			passengersDetails.adult2_3();
+			passengersDetails.adult2_4();
+		}
+		else if (numofAdults.equals("5")) {
+			passengersDetails.adult2_1();
+			passengersDetails.adult2_2();
+			passengersDetails.adult2_3();
+			passengersDetails.adult2_4();
+			passengersDetails.adult2_5();
+		
+		}
+		else if (numofAdults.equals("6")) {
+			passengersDetails.adult2_1();
+			passengersDetails.adult2_2();
+			passengersDetails.adult2_3();
+			passengersDetails.adult2_4();
+			passengersDetails.adult2_5();
+			passengersDetails.adult2_6();
+		}
+		else if (numofAdults.equals("7")) {
+			passengersDetails.adult2_1();
+			passengersDetails.adult2_2();
+			passengersDetails.adult2_3();
+			passengersDetails.adult2_4();
+			passengersDetails.adult2_5();
+			passengersDetails.adult2_6();
+			passengersDetails.adult2_7();
+		}
+		else if (numofAdults.equals("8")) {
+			passengersDetails.adult2_1();
+			passengersDetails.adult2_2();
+			passengersDetails.adult2_3();
+			passengersDetails.adult2_4();
+			passengersDetails.adult2_5();
+			passengersDetails.adult2_6();
+			passengersDetails.adult2_7();
+			passengersDetails.adult2_8();
+		}
+		else if (numofAdults.equals("9")) {
+			passengersDetails.adult2_1();
+			passengersDetails.adult2_2();
+			passengersDetails.adult2_3();
+			passengersDetails.adult2_4();
+			passengersDetails.adult2_5();
+			passengersDetails.adult2_6();
+			passengersDetails.adult2_7();
+			passengersDetails.adult2_8();
+			passengersDetails.adult2_9();
+		}
+	
+		if(numofChilds.equals("1"))
+		{
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_1(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_2(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_3(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_4(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_5(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_6(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_7(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("8".equals(numofAdults)) {
+				passengersDetails.child2_8(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			
+		}
+		else if(numofChilds.equals("2"))
+		{
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_1(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_2(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_3(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_4(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_5(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_6(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_7(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("8".equals(numofAdults)) {
+				passengersDetails.child2_8(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_2(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_3(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_4(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_5(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_6(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_7(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_8(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			
+		}
+		else if(numofChilds.equals("3"))
+		{
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_1(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_2(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_3(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_4(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_5(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_6(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_7(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("8".equals(numofAdults)) {
+				passengersDetails.child2_8(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_2(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_3(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_4(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_5(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_6(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_7(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_8(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+             System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_3(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_4(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_5(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_6(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_7(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_8(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			
+		
+			
+		}
+		else if(numofChilds.equals("4"))
+		{
+			
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_1(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_2(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_3(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_4(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_5(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_6(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_7(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("8".equals(numofAdults)) {
+				passengersDetails.child2_8(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_2(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_3(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_4(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_5(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_6(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_7(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_8(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+             System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_3(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_4(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_5(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_6(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_7(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_8(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_4(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_5(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_6(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_7(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_8(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			}
+		
+		}
+		else if(numofChilds.equals("5"))
+		{
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_1(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_2(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_3(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_4(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_5(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_6(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_7(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("8".equals(numofAdults)) {
+				passengersDetails.child2_8(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_2(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_3(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_4(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_5(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_6(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_7(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_8(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+             System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_3(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_4(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_5(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_6(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_7(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_8(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_4(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_5(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_6(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_7(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_8(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			}
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_5(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_6(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_7(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			} else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_8(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			}
+			
+		}
+		else if(numofChilds.equals("6"))
+		{
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_1(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_2(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_3(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_4(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_5(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_6(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_7(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("8".equals(numofAdults)) {
+				passengersDetails.child2_8(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_2(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_3(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_4(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_5(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_6(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_7(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_8(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+             System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_3(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_4(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_5(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_6(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_7(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_8(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_4(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_5(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_6(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_7(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_8(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			}
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_5(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_6(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_7(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			} else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_8(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_6(child_6_Title,child_6_firstname,child_6_lastname,child6_dof_d,child6_dof_m,child6_dof_y,child6_doc_Type,child_6_IC,child6_doc_Number,child6_pass_d,child6_pass_m,child6_pass_y,child_6_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_7(child_6_Title,child_6_firstname,child_6_lastname,child6_dof_d,child6_dof_m,child6_dof_y,child6_doc_Type,child_6_IC,child6_doc_Number,child6_pass_d,child6_pass_m,child6_pass_y,child_6_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_8(child_6_Title,child_6_firstname,child_6_lastname,child6_dof_d,child6_dof_m,child6_dof_y,child6_doc_Type,child_6_IC,child6_doc_Number,child6_pass_d,child6_pass_m,child6_pass_y,child_6_nation);
+
+			}
+				
+		}
+		else if(numofChilds.equals("7"))
+		{
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_1(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_2(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_3(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_4(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_5(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_6(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_7(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("8".equals(numofAdults)) {
+				passengersDetails.child2_8(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_2(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_3(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_4(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_5(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_6(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_7(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_8(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+             System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_3(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_4(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_5(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_6(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_7(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_8(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_4(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_5(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_6(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_7(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_8(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			}
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_5(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_6(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_7(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			} else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_8(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_6(child_6_Title,child_6_firstname,child_6_lastname,child6_dof_d,child6_dof_m,child6_dof_y,child6_doc_Type,child_6_IC,child6_doc_Number,child6_pass_d,child6_pass_m,child6_pass_y,child_6_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_7(child_6_Title,child_6_firstname,child_6_lastname,child6_dof_d,child6_dof_m,child6_dof_y,child6_doc_Type,child_6_IC,child6_doc_Number,child6_pass_d,child6_pass_m,child6_pass_y,child_6_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_8(child_6_Title,child_6_firstname,child_6_lastname,child6_dof_d,child6_dof_m,child6_dof_y,child6_doc_Type,child_6_IC,child6_doc_Number,child6_pass_d,child6_pass_m,child6_pass_y,child_6_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_7(child_7_Title,child_7_firstname,child_7_lastname,child7_dof_d,child7_dof_m,child7_dof_y,child7_doc_Type,child_7_IC,child7_doc_Number,child7_pass_d,child7_pass_m,child7_pass_y,child_7_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_8(child_7_Title,child_7_firstname,child_7_lastname,child7_dof_d,child7_dof_m,child7_dof_y,child7_doc_Type,child_7_IC,child7_doc_Number,child7_pass_d,child7_pass_m,child7_pass_y,child_7_nation);
+
+			}
+		}
+		
+		
+		else if(numofChilds.equals("8"))
+		{
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_1(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_2(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_3(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_4(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_5(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_6(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_7(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			else if ("8".equals(numofAdults)) {
+				passengersDetails.child2_8(child_1_Title,child_1_firstname,child_1_lastname,child1_dof_d,child1_dof_m,child1_dof_y,child1_doc_Type,child_1_IC,child1_doc_Number,child1_pass_d,child1_pass_m,child1_pass_y,child_1_nation);
+
+			}
+			System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_2(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_3(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_4(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_5(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_6(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_7(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+			else if ("7".equals(numofAdults)) {
+				passengersDetails.child2_8(child_2_Title,child_2_firstname,child_2_lastname,child2_dof_d,child2_dof_m,child2_dof_y,child2_doc_Type,child_2_IC,child2_doc_Number,child2_pass_d,child2_pass_m,child2_pass_y,child_2_nation);
+
+			}
+             System.out.println("----");
+			
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_3(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_4(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_5(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_6(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_7(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			else if ("6".equals(numofAdults)) {
+				passengersDetails.child2_8(child_3_Title,child_3_firstname,child_3_lastname,child3_dof_d,child3_dof_m,child3_dof_y,child3_doc_Type,child_3_IC,child3_doc_Number,child3_pass_d,child3_pass_m,child3_pass_y,child_3_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_4(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_5(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_6(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_7(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			} else if ("5".equals(numofAdults)) {
+				passengersDetails.child2_8(child_4_Title,child_4_firstname,child_4_lastname,child4_dof_d,child4_dof_m,child4_dof_y,child4_doc_Type,child_4_IC,child4_doc_Number,child4_pass_d,child4_pass_m,child4_pass_y,child_4_nation);
+
+			}
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_5(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_6(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_7(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			} else if ("4".equals(numofAdults)) {
+				passengersDetails.child2_8(child_5_Title,child_5_firstname,child_5_lastname,child5_dof_d,child5_dof_m,child5_dof_y,child5_doc_Type,child_5_IC,child5_doc_Number,child5_pass_d,child5_pass_m,child5_pass_y,child_5_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_6(child_6_Title,child_6_firstname,child_6_lastname,child6_dof_d,child6_dof_m,child6_dof_y,child6_doc_Type,child_6_IC,child6_doc_Number,child6_pass_d,child6_pass_m,child6_pass_y,child_6_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_7(child_6_Title,child_6_firstname,child_6_lastname,child6_dof_d,child6_dof_m,child6_dof_y,child6_doc_Type,child_6_IC,child6_doc_Number,child6_pass_d,child6_pass_m,child6_pass_y,child_6_nation);
+
+			} else if ("3".equals(numofAdults)) {
+				passengersDetails.child2_8(child_6_Title,child_6_firstname,child_6_lastname,child6_dof_d,child6_dof_m,child6_dof_y,child6_doc_Type,child_6_IC,child6_doc_Number,child6_pass_d,child6_pass_m,child6_pass_y,child_6_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_7(child_7_Title,child_7_firstname,child_7_lastname,child7_dof_d,child7_dof_m,child7_dof_y,child7_doc_Type,child_7_IC,child7_doc_Number,child7_pass_d,child7_pass_m,child7_pass_y,child_7_nation);
+			} else if ("2".equals(numofAdults)) {
+				passengersDetails.child2_8(child_7_Title,child_7_firstname,child_7_lastname,child7_dof_d,child7_dof_m,child7_dof_y,child7_doc_Type,child_7_IC,child7_doc_Number,child7_pass_d,child7_pass_m,child7_pass_y,child_7_nation);
+
+			}
+			
+			System.out.println("----");
+
+			if ("1".equals(numofAdults)) {
+				passengersDetails.child2_8(child_8_Title,child_8_firstname,child_8_lastname,child8_dof_d,child8_dof_m,child8_dof_y,child8_doc_Type,child_8_IC,child8_doc_Number,child8_pass_d,child8_pass_m,child8_pass_y,child_8_nation);
+			} 
+		}
+		
+		
+		if (numofInfants.equals("1")) {
+			
+			passengersDetails.Infant2_1();
+			
+		
+		} else if (numofInfants.equals("2")) {
+			passengersDetails.Infant2_1();
+			passengersDetails.Infant2_2();
+		}
+		else if (numofInfants.equals("3")) {
+			
+			passengersDetails.Infant2_1();
+			passengersDetails.Infant2_2();
+			passengersDetails.Infant2_3();
+		}
+		else if (numofInfants.equals("4")) {
+			passengersDetails.Infant2_1();
+			passengersDetails.Infant2_2();
+			passengersDetails.Infant2_3();
+			passengersDetails.Infant2_4();
+		}
+		
+		
+			
+		
+		/*	}
+		catch(Exception e)
+		{
+			PageUtils.getScreenShot(PnrDetails.PnrId,driver);
+			passengersDetails.returnStatus_fail(PnrDetails.Domain,PnrDetails.PnrId,"Document Details Element Not Found");
+			driver.quit();
+		}*/
+		
+		
+		
+		Thread.sleep(2000);
+	  
+		System.out.println("Enter All Passenger Details Successfully");
+		////PageUtils.getScreenShot(pnrdetails.PnrId,driver);
+		/*flynasPage.txt_Conf_Pwd().sendKeys("test");
+		flynasPage.txt_Conf_Pwd().clear();*/
+		CebuPage.chk_below_Passenger().click();
+		Thread.sleep(2000);
+		CebuPage.btn_Continue_Passenger2().click();
+		
+		
+		
+	}
+	
+	public static void extrasAddOns_2() throws Exception
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL);
+		PageUtils.isElementVisibil(driver, CebuPage.pop_Up_Yes());
+		CebuPage.pop_Up_Yes().click();
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_VERY_LONG);
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Continue_AddOns());
+		CebuPage.btn_Continue_AddOns().click();
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.btn_NoThanks_PhTravelTax());
+		CebuPage.btn_NoThanks_PhTravelTax().click();
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_VERY_LONG);
+		PageUtils.isElementVisibil(driver, CebuPage.chk_CANCELLATION());
+		CebuPage.chk_CANCELLATION().click();
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		CebuPage.btn_Confirm_Continue2().click();
+	}
+
+	public static void Payment() throws Exception {
+		CebuPage.Pay_button().click();
+	}
 	
 	public static void tripType() throws Exception
 	{
@@ -1520,7 +2757,7 @@ public class CebuAllModules extends passengersDetails{
 				     
 			}
 		
-		/*	}
+			/*}
 		catch(Exception e)
 		{
 			PageUtils.getScreenShot(PnrDetails.PnrId,driver);
@@ -1534,13 +2771,13 @@ public class CebuAllModules extends passengersDetails{
 	  
 		System.out.println("Enter All Passenger Details Successfully");
 		////PageUtils.getScreenShot(pnrdetails.PnrId,driver);
-		/*flynasPage.txt_Conf_Pwd().sendKeys("test");
-		flynasPage.txt_Conf_Pwd().clear();*/
+		
 		CebuPage.btn_Continue_Passenger().click();
 		
 		
 		
-	}
+	
+}
 
 
 	public static void extrasAddOns() throws Exception

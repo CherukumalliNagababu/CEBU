@@ -434,7 +434,822 @@ public class passengersDetails {
 		
 	}
 	
-    public static void adult1() throws Exception {
+	public static void adult2_1() throws Exception {
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_1());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_1(), "Mr.");
+		CebuPage.firstname2_1().sendKeys("Naga");
+		CebuPage.lastname2_1().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_1());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_1(), "1991");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_1());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_1(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_1());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_1(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_1());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_1(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_1());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_1(), "India, Republic of");
+		CebuPage.chk_countryOfRe_1().click();
+		CebuPage.txt_Passport_Num2_1().sendKeys("1452Rte");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_1(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_1());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_1(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_1());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_1(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_1());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_1(), "19");
+		
+	}
+	
+	public static void adult2_2() throws Exception {
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_2(), "Mr.");
+		CebuPage.firstname2_2().sendKeys("Gopi");
+		CebuPage.lastname2_2().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_2(), "1991");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_2(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_2(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_2());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_2(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_2(), "India, Republic of");
+		CebuPage.chk_countryOfRe_2().click();
+		CebuPage.txt_Passport_Num2_2().sendKeys("ret345");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_2(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_2(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_2(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_2(), "19");
+		
+	}
+	public static void adult2_3() throws Exception {
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_3(), "Mr.");
+		CebuPage.firstname2_3().sendKeys("Suresh");
+		CebuPage.lastname2_3().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_3(), "1991");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_3(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_3(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_3());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_3(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_3(), "India, Republic of");
+		CebuPage.chk_countryOfRe_3().click();
+		CebuPage.txt_Passport_Num2_3().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_3(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_3(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_3(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_3(), "19");
+		
+	}
+	
+	public static void adult2_4() throws Exception {
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_4(), "Mr.");
+		CebuPage.firstname2_4().sendKeys("Suresh");
+		CebuPage.lastname2_4().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_4(), "1991");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_4(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_4(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_4());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_4(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_4(), "India, Republic of");
+		CebuPage.chk_countryOfRe_4().click();
+		CebuPage.txt_Passport_Num2_4().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_4(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_4(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_4(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_4(), "19");
+		
+	}
+	
+	public static void adult2_5() throws Exception {
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_5(), "Mr.");
+		CebuPage.firstname2_5().sendKeys("Suresh");
+		CebuPage.lastname2_5().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_5(), "1991");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_5(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_5(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_5());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_5(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_5(), "India, Republic of");
+		CebuPage.chk_countryOfRe_5().click();
+		CebuPage.txt_Passport_Num2_5().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_5(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_5(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_5(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_5(), "19");
+		
+	}
+	public static void adult2_6() throws Exception {
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_6(), "Mr.");
+		CebuPage.firstname2_6().sendKeys("Suresh");
+		CebuPage.lastname2_6().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_6(), "1991");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_6(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_6(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_6());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_6(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_6(), "India, Republic of");
+		CebuPage.chk_countryOfRe_6().click();
+		CebuPage.txt_Passport_Num2_6().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_6(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_6(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_6(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_6(), "19");
+		
+	}
+	public static void adult2_7() throws Exception {
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_7(), "Mr.");
+		CebuPage.firstname2_7().sendKeys("Suresh");
+		CebuPage.lastname2_7().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_7(), "1991");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_7(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_7(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_7());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_7(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_7(), "India, Republic of");
+		CebuPage.chk_countryOfRe_7().click();
+		CebuPage.txt_Passport_Num2_7().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_7(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_7(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_7(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_7(), "19");
+		
+	}
+	
+	public static void adult2_8() throws Exception {
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_8(), "Mr.");
+		CebuPage.firstname2_8().sendKeys("Suresh");
+		CebuPage.lastname2_8().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_8(), "1991");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_8(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_8(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_8());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_8(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_8(), "India, Republic of");
+		CebuPage.chk_countryOfRe_8().click();
+		CebuPage.txt_Passport_Num2_8().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_8(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_8(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_8(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_8(), "19");
+		
+	}
+	public static void adult2_9() throws Exception {
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_9(), "Mr.");
+		CebuPage.firstname2_9().sendKeys("Suresh");
+		CebuPage.lastname2_9().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_9(), "1991");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_9(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_9(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_9());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_9(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_9(), "India, Republic of");
+		CebuPage.chk_countryOfRe_9().click();
+		CebuPage.txt_Passport_Num2_9().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_9(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_9(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_9(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_9(), "19");
+		
+	}
+	
+	
+	public static void child2_1(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_2(), "Ms.");
+		CebuPage.firstname2_2().sendKeys("Suresh");
+		CebuPage.lastname2_2().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_2(), "2008");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_2(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_2(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_2());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_2(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_2(), "India, Republic of");
+		CebuPage.chk_countryOfRe_2().click();
+		CebuPage.txt_Passport_Num2_2().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_2(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_2(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_2(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_2());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_2(), "19");
+	}
+	public static void child2_2(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_3(), "Ms.");
+		CebuPage.firstname2_3().sendKeys("Suresh");
+		CebuPage.lastname2_3().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_3(), "2008");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_3(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_3(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_3());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_3(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_3(), "India, Republic of");
+		CebuPage.chk_countryOfRe_3().click();
+		CebuPage.txt_Passport_Num2_3().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_3(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_3(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_3(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_3());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_3(), "19");
+	}
+	public static void child2_3(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_4(), "Ms.");
+		CebuPage.firstname2_4().sendKeys("Suresh");
+		CebuPage.lastname2_4().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_4(), "2008");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_4(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_4(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_4());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_4(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_4(), "India, Republic of");
+		CebuPage.chk_countryOfRe_4().click();
+		CebuPage.txt_Passport_Num2_4().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_4(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_4(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_4(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_4());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_4(), "19");
+	}
+	public static void child2_4(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_5(), "Ms.");
+		CebuPage.firstname2_5().sendKeys("Suresh");
+		CebuPage.lastname2_5().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_5(), "2008");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_5(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_5(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_5());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_5(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_5(), "India, Republic of");
+		CebuPage.chk_countryOfRe_5().click();
+		CebuPage.txt_Passport_Num2_5().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_5(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_5(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_5(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_5());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_5(), "19");
+	}
+	public static void child2_5(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_6(), "Ms.");
+		CebuPage.firstname2_6().sendKeys("Suresh");
+		CebuPage.lastname2_6().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_6(), "2008");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_6(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_6(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_6());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_6(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_6(), "India, Republic of");
+		CebuPage.chk_countryOfRe_6().click();
+		CebuPage.txt_Passport_Num2_6().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_6(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_6(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_6(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_6());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_6(), "19");
+	}
+	public static void child2_6(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_7(), "Ms.");
+		CebuPage.firstname2_7().sendKeys("Suresh");
+		CebuPage.lastname2_7().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_7(), "2008");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_7(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_7(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_7());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_7(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_7(), "India, Republic of");
+		CebuPage.chk_countryOfRe_7().click();
+		CebuPage.txt_Passport_Num2_7().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_7(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_7(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_7(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_7());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_7(), "19");
+	}
+	public static void child2_7(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_8(), "Ms.");
+		CebuPage.firstname2_8().sendKeys("Suresh");
+		CebuPage.lastname2_8().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_8(), "2008");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_8(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_8(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_8());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_8(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_8(), "India, Republic of");
+		CebuPage.chk_countryOfRe_8().click();
+		CebuPage.txt_Passport_Num2_8().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_8(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_8(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_8(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_8());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_8(), "19");
+	}
+	public static void child2_8(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.drp_title2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_title2_9(), "Ms.");
+		CebuPage.firstname2_9().sendKeys("Suresh");
+		CebuPage.lastname2_9().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_year2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_year2_9(), "2008");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_month2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_month2_9(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.drp_date2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_date2_9(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality2_9());
+		PageUtils.selectByVisibleText(CebuPage.btn_Nationality2_9(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_countryOfRe_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_countryOfRe_9(), "India, Republic of");
+		CebuPage.chk_countryOfRe_9().click();
+		CebuPage.txt_Passport_Num2_9().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.Passport_issuing_Country_9(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Year2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Year2_9(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_Month2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_Month2_9(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.drp_pass_Exp_day2_9());
+		PageUtils.selectByVisibleText(CebuPage.drp_pass_Exp_day2_9(), "19");
+	}
+		 
+		
+	
+	public static void Infant2_1() throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_title2_1());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_title2_1(), "Ms.");
+		CebuPage.I_firstname2_1().sendKeys("Suresh");
+		CebuPage.I_lastname2_1().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_year2_1());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_year2_1(), "2018");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_month2_1());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_month2_1(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_date2_1());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_date2_1(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_btn_Nationality2_1());
+		PageUtils.selectByVisibleText(CebuPage.I_btn_Nationality2_1(), "India, Republic of");
+		
+		
+		
+		CebuPage.I_txt_Passport_Num2_1().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.I_Passport_issuing_Country_1(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_Year2_1());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_Year2_1(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_Month2_1());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_Month2_1(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_day2_1());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_day2_1(), "19");
+	}
+		
+	
+	public static void Infant2_2() throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.I_TravellingWith2_2());
+		PageUtils.selectByIndexValue(CebuPage.I_TravellingWith2_2(), 1);
+		PageUtils.selectByVisibleText(CebuPage.I_drp_title2_2(), "Ms.");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_title2_2());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_title2_2(), "Ms.");
+		CebuPage.I_firstname2_2().sendKeys("Suresh");
+		CebuPage.I_lastname2_2().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_year2_2());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_year2_2(), "2018");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_month2_2());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_month2_2(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_date2_2());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_date2_2(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_btn_Nationality2_2());
+		PageUtils.selectByVisibleText(CebuPage.I_btn_Nationality2_2(), "India, Republic of");
+		
+		
+		
+		CebuPage.I_txt_Passport_Num2_2().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.I_Passport_issuing_Country_2(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_Year2_2());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_Year2_2(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_Month2_2());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_Month2_2(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_day2_2());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_day2_2(), "19");
+	}
+	public static void Infant2_3() throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_TravellingWith2_3());
+		PageUtils.selectByIndexValue(CebuPage.I_TravellingWith2_3(),1);
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_title2_3());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_title2_3(), "Ms.");
+		CebuPage.I_firstname2_3().sendKeys("Suresh");
+		CebuPage.I_lastname2_3().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_year2_3());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_year2_3(), "2018");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_month2_3());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_month2_3(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_date2_3());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_date2_3(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_btn_Nationality2_3());
+		PageUtils.selectByVisibleText(CebuPage.I_btn_Nationality2_3(), "India, Republic of");
+		
+		
+		
+		CebuPage.I_txt_Passport_Num2_3().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.I_Passport_issuing_Country_3(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_Year2_3());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_Year2_3(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_Month2_3());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_Month2_3(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_day2_3());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_day2_3(), "19");
+	}
+	public static void Infant2_4() throws Exception 
+	{
+		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
+		PageUtils.isElementVisibil(driver, CebuPage.I_TravellingWith2_4());
+		PageUtils.selectByIndexValue(CebuPage.I_TravellingWith2_4(), 1);
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_title2_4());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_title2_4(), "Ms.");
+		CebuPage.I_firstname2_4().sendKeys("Suresh");
+		CebuPage.I_lastname2_4().sendKeys("Babu");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_year2_4());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_year2_4(), "2018");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_month2_4());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_month2_4(), "Dec");
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_date2_4());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_date2_4(), "29");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_btn_Nationality2_4());
+		PageUtils.selectByVisibleText(CebuPage.I_btn_Nationality2_4(), "India, Republic of");
+		
+		
+		
+		CebuPage.I_txt_Passport_Num2_4().sendKeys("dhgd5y");
+		
+		
+		PageUtils.selectByVisibleText(CebuPage.I_Passport_issuing_Country_4(), "India, Republic of");
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_Year2_4());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_Year2_4(), "2025");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_Month2_4());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_Month2_4(), "May");
+		
+		
+		
+		PageUtils.isElementVisibil(driver, CebuPage.I_drp_pass_Exp_day2_4());
+		PageUtils.selectByVisibleText(CebuPage.I_drp_pass_Exp_day2_4(), "19");
+	}
+public static void adult1() throws Exception {
 		
 		PageUtils.waitForFixedTime(BrowserContants.WAIT_SMALL_ENGINE);
 		PageUtils.isElementVisibil(driver, CebuPage.drp_title_1());
@@ -560,12 +1375,6 @@ public static void adult2() throws Exception {
 
 			
 }
-	
-	
-	
-   
-
-
 public static void adult3() throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_3());
@@ -589,11 +1398,6 @@ public static void adult3() throws Exception {
 
 	
 }
-		
-	
-	
-	
-   
 public static void adult4() throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_4());
@@ -618,7 +1422,6 @@ public static void adult4() throws Exception {
 	
     
 }
-
 public static void adult5() throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_5());
@@ -643,7 +1446,6 @@ public static void adult5() throws Exception {
 	
    
 }
-
 public static void adult6() throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_6());
@@ -691,12 +1493,6 @@ public static void adult7() throws Exception {
 	
 		
 }
-			
-		
-	
-	
-   
-
 public static void adult8() throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_8());
@@ -720,9 +1516,6 @@ public static void adult8() throws Exception {
 			
 
 		}
-			
-		
-
 public static void adult9() throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_9());
@@ -746,7 +1539,6 @@ public static void adult9() throws Exception {
 
 	
 }
-
 public static void child1(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_2());
@@ -768,11 +1560,6 @@ public static void child1(String Title,String FN,String LN,String d,String m,Str
 	PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality_2());
 	PageUtils.selectByVisibleText(CebuPage.btn_Nationality_2(), "");
 }
-			
-	
-	
-   
-
 public static void child2(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_3());
@@ -893,11 +1680,6 @@ public static void child6(String Title,String FN,String LN,String d,String m,Str
 	PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality_7());
 	PageUtils.selectByVisibleText(CebuPage.btn_Nationality_7(), "");
 }
-		
-
-
-    
-
 public static void child7(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_8());
@@ -920,11 +1702,6 @@ public static void child7(String Title,String FN,String LN,String d,String m,Str
 	PageUtils.selectByVisibleText(CebuPage.btn_Nationality_8(), "");
 	
 }
-		
-
-
-    
-
 public static void child8(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_9());
@@ -946,10 +1723,6 @@ public static void child8(String Title,String FN,String LN,String d,String m,Str
 	PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality_9());
 	PageUtils.selectByVisibleText(CebuPage.btn_Nationality_9(), "");
 }
-		
-
-   
-
 public static void Infant1(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_2());
@@ -971,14 +1744,6 @@ public static void Infant1(String Title,String FN,String LN,String d,String m,St
 	PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality_2());
 	PageUtils.selectByVisibleText(CebuPage.btn_Nationality_2(), "");
 }
-		
-
-	
-	
-	
-	
-    
-
 public static void Infant2(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_3());
@@ -1001,8 +1766,6 @@ public static void Infant2(String Title,String FN,String LN,String d,String m,St
 	PageUtils.selectByVisibleText(CebuPage.btn_Nationality_3(), "");
 
 }
-	
-   
 public static void Infant3(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_4());
@@ -1024,9 +1787,6 @@ public static void Infant3(String Title,String FN,String LN,String d,String m,St
 	PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality_4());
 	PageUtils.selectByVisibleText(CebuPage.btn_Nationality_4(), "");
 }
-		
-
-
 public static void Infant4(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_5());
@@ -1048,9 +1808,6 @@ public static void Infant4(String Title,String FN,String LN,String d,String m,St
 	PageUtils.isElementVisibil(driver, CebuPage.btn_Nationality_5());
 	PageUtils.selectByVisibleText(CebuPage.btn_Nationality_5(), "");
 }
-		
-
-
 public static void Infant5(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_6());
@@ -1073,9 +1830,6 @@ public static void Infant5(String Title,String FN,String LN,String d,String m,St
 	PageUtils.selectByVisibleText(CebuPage.btn_Nationality_6(), "");
 	
 }
-		
-
-
 public static void Infant6(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	 
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_7());
@@ -1099,7 +1853,6 @@ public static void Infant6(String Title,String FN,String LN,String d,String m,St
 
 		
 }
-
 public static void Infant7(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_8());
 	PageUtils.selectByVisibleText(CebuPage.drp_title_8(), "");
@@ -1122,9 +1875,6 @@ public static void Infant7(String Title,String FN,String LN,String d,String m,St
 
 	
 }
-		
-
-
 public static void Infant8(String Title,String FN,String LN,String d,String m,String y,String docType,String IsCou,String number,String P_d,String P_m,String P_y,String nation) throws Exception {
 	PageUtils.isElementVisibil(driver, CebuPage.drp_title_9());
 	PageUtils.selectByVisibleText(CebuPage.drp_title_9(), "");

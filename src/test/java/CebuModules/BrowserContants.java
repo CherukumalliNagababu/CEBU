@@ -18,6 +18,6 @@ public class BrowserContants {
 	public static final String PRD_API_URL = "http://commonrehlat.azurewebsites.net/v1/scraping";
 	public static final String STG_API_URL = "https://stagerehlatcommonapi.rehlat.com/v1/scraping";
 	
-	public static final String ENV="STG";//PRD or STG
+	public static final String ENV="PRD";//PRD or STG
 	
 }

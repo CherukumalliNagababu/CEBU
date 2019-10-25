@@ -239,6 +239,12 @@ public class PageUtils {
 			select.selectByVisibleText(visibleText);
 			
 		}
+		
+		public static void selectByIndexValue(WebElement element, int Num) {
+			Select select = new Select(element);
+			select.selectByIndex(Num);
+			
+		}
 	   
 	   
 }

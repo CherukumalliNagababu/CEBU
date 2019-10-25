@@ -94,6 +94,8 @@ public class CebuAllModules extends passengersDetails{
 		 String SecondFlightEndTime_Next = null;
 		 
 		 String FlyOnlyTotalAmount = null;
+		 
+		 String CurrencyType = null;
 		
 		 List<CBFlightDetails> finalList =  new ArrayList<CBFlightDetails>();
 		
@@ -145,7 +147,14 @@ public class CebuAllModules extends passengersDetails{
 				  FirstFlightAirPort_2=str1.split(",")[4];
 				  FirstFlightTime=str1.split(",")[5];
 				  
+				  //**********************************
+				  String Amount=str1.split(",")[6];
+				   CurrencyType=Amount.split(" ")[0];
+				  System.out.println("CurrencyType"+CurrencyType);
+				  //**********************************
+				
 				  String FlyOnlyAmount=str1.split(" ")[5];
+				 
 				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
 				  FlyOnlyTotalAmount=FlyOnlyTotalAmount.replaceAll("This", "");
@@ -176,7 +185,14 @@ public class CebuAllModules extends passengersDetails{
 				 FirstFlightTime=str1.split(",")[10];
 				  SecondFlightTime=str1.split(",")[11];
 				  
+				
+				  //**********************************
+				  String Amount=str1.split(",")[12];
+				  CurrencyType=Amount.split(" ")[0];
+				  System.out.println("CurrencyType"+CurrencyType);
+				  //**********************************
 				  String FlyOnlyAmount=str1.split(" ")[11];
+				
 				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("This", "");
@@ -206,7 +222,14 @@ public class CebuAllModules extends passengersDetails{
 				  FirstFlightTime=str1.split(",")[11];
 				  SecondFlightTime=str1.split(",")[12];
 				 
+				
+				  //**********************************
+				  String Amount=str1.split(",")[12];
+				  CurrencyType=Amount.split(" ")[0];
+				  System.out.println("CurrencyType"+CurrencyType);
+				  //**********************************
 				  String FlyOnlyAmount=str1.split(" ")[12];
+				
 				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("This", "");
@@ -233,7 +256,13 @@ public class CebuAllModules extends passengersDetails{
 				  FirstFlightTime=str1.split(",")[11];
 				  SecondFlightTime=str1.split(",")[12];
 				 
+				  //**********************************
+				  String Amount=str1.split(",")[13];
+				  CurrencyType=Amount.split(" ")[0];
+				  System.out.println("CurrencyType"+CurrencyType);
+				  //**********************************
 				  String FlyOnlyAmount=str1.split(" ")[12];
+				
 				  String FlyOnlyAmountS=FlyOnlyAmount.replaceAll(",", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("HKD", "");
 				  FlyOnlyTotalAmount=FlyOnlyAmountS.replaceAll("This", "");
@@ -322,25 +351,34 @@ public class CebuAllModules extends passengersDetails{
 			
 		}
 			
-			ApiMethods.sendResults(From, To,DepDate, finalList);
+			ApiMethods.sendResults(From, To,CurrencyType,DepDate, finalList);
 			}
 		}
 		}
 	
 	
-	public static void Agent_Login() throws Exception
-	{
-		CebuPage.Agent_UserName().sendKeys("JM073KWI");
-		CebuPage.Agent_PWD().sendKeys("abTT*2019");
-		CebuPage.Agent_Login_Btn().click();
-	}
-	public static void tripType_2(String TripType ) throws Exception
+	public static void Agent_Login(Database PnrDetails ) throws Exception
 	{
 		try {
-			if ("OneWay".equals(TripType)) {
+		CebuPage.Agent_UserName().sendKeys("APS057DXB");
+		System.out.println("Enter UserName");
+		CebuPage.Agent_PWD().sendKeys("Rehlat@2020");
+		System.out.println("Enter Password");
+		CebuPage.Agent_Login_Btn().click();
+		} catch (Exception e) {
+			status = "Login Error";
+			PageUtils.getScreenShot(PnrDetails.PnrId, driver);
+			driver.quit();
+
+		}
+	}
+	public static void tripType_2(Database PnrDetails ) throws Exception
+	{
+		try {
+			if ("OneWay".equals(PnrDetails.TripType)) {
 				// Thread.sleep(10000);
 				CebuPage.oneyWay2().click();
-			} else if ("RoundTrip".equals(TripType)) {
+			} else if ("RoundTrip".equals(PnrDetails.TripType)) {
 				System.out.println("Select Round Trip");
 			}
 		} catch (Exception e) {
@@ -359,11 +397,12 @@ public class CebuAllModules extends passengersDetails{
 			
 	
 	}
+	
 	public static void enterFromAndTo_SRP(String From,String To) throws Exception
 	{
 		
 		CebuPage.Clk_From2().click();
-		CebuPage.Clk_From2().sendKeys("HKG");
+		CebuPage.Clk_From2().sendKeys(From);
 		CebuPage.Clk_From2().sendKeys(Keys.ARROW_DOWN);
 		Thread.sleep(1000);
 		CebuPage.Clk_From2().sendKeys(Keys.ENTER);
@@ -371,18 +410,18 @@ public class CebuAllModules extends passengersDetails{
 		PageUtils.isElementVisibil(driver, CebuPage.Clk_To2());
 		CebuPage.Clk_To2().click();
 		Thread.sleep(1000);
-		CebuPage.Clk_To2().sendKeys("MNL");
+		CebuPage.Clk_To2().sendKeys(To);
 		CebuPage.Clk_To2().sendKeys(Keys.ARROW_DOWN);
 		Thread.sleep(1000);
 		CebuPage.Clk_To2().sendKeys(Keys.TAB);
 		
 
 	}
-	public static void enterFromAndTo_2() throws Exception
+	public static void enterFromAndTo_2(Database PnrDetails ) throws Exception
 	{
 		
 		CebuPage.Clk_From2().click();
-		CebuPage.Clk_From2().sendKeys("HKG");
+		CebuPage.Clk_From2().sendKeys(PnrDetails.From);
 		CebuPage.Clk_From2().sendKeys(Keys.ARROW_DOWN);
 		Thread.sleep(1000);
 		CebuPage.Clk_From2().sendKeys(Keys.ENTER);
@@ -390,22 +429,22 @@ public class CebuAllModules extends passengersDetails{
 		PageUtils.isElementVisibil(driver, CebuPage.Clk_To2());
 		CebuPage.Clk_To2().click();
 		Thread.sleep(1000);
-		CebuPage.Clk_To2().sendKeys("MNL");
+		CebuPage.Clk_To2().sendKeys(PnrDetails.To);
 		CebuPage.Clk_To2().sendKeys(Keys.ARROW_DOWN);
 		Thread.sleep(1000);
 		CebuPage.Clk_To2().sendKeys(Keys.TAB);
 		
 
 	}
-	public static void enterDateAndNumberOfPassenger_SRP() throws Exception
+	public static void enterDateAndNumberOfPassenger_SRP(String MandYear,String date) throws Exception
 	{
 		
 		PageUtils.waitForFixedTime(BrowserContants.WAIT_VERY_SMALL);
 		
-		CebuPage.header_Month_D_2("October 2019");
+		CebuPage.header_Month_D_2(MandYear);
 		Thread.sleep(1000);
 		CebuPage.ScrollDown();
-		CebuPage.select_Date_D_2("25");
+		CebuPage.select_Date_D_2(date);
 		
 		
 		
@@ -418,28 +457,28 @@ public class CebuAllModules extends passengersDetails{
          
 		}
 	
-	public static void enterDateAndNumberOfPassenger_2(String TripType) throws Exception
+	public static void enterDateAndNumberOfPassenger_2(Database PnrDetails,String depMandY,String depDate,String retMandY,String retDate ) throws Exception
 	{
 		
 		PageUtils.waitForFixedTime(BrowserContants.WAIT_VERY_SMALL);
-		if ("OneWay".equals(TripType)) {
-		CebuPage.header_Month_D_2("October 2019");
+		if ("OneWay".equals(PnrDetails.TripType)) {
+		CebuPage.header_Month_D_2(depMandY);
 		Thread.sleep(1000);
 		CebuPage.ScrollDown();
-		CebuPage.select_Date_D_2("23");
+		CebuPage.select_Date_D_2(depDate);
 		}
-		else if ("RoundTrip".equals(TripType)) {
-			CebuPage.header_Month_D_2("October 2019");
+		else if ("RoundTrip".equals(PnrDetails.TripType)) {
+			CebuPage.header_Month_D_2(depMandY);
 			Thread.sleep(1000);
 			CebuPage.ScrollDown();
-			CebuPage.select_Date_D_2("25");
+			CebuPage.select_Date_D_2(depDate);
 			Thread.sleep(1000);
 			CebuPage.btn_Calender_R_Clk().click();
 			Thread.sleep(1000);
-			CebuPage.header_Month_D_2("October 2019");
+			CebuPage.header_Month_D_2(retMandY);
 			Thread.sleep(1000);
 			CebuPage.ScrollDown();
-			CebuPage.select_Date_D_2("25");
+			CebuPage.select_Date_D_2(retDate);
 			
 		}
 		Thread.sleep(1000);
@@ -478,13 +517,13 @@ public class CebuAllModules extends passengersDetails{
          
 		}
 	
-	public static void FlightNumberDetails_2(String TripType) throws Exception
+	public static void FlightNumberDetails_2(Database PnrDetails) throws Exception
 	{
 		
-		if ("OneWay".equals(TripType)) {
+		if ("OneWay".equals(PnrDetails.TripType)) {
 		CebuPage.flight_Numbers2_DEP("5J 113","5J 49");
 		}
-		else if ("RoundTrip".equals(TripType)) {
+		else if ("RoundTrip".equals(PnrDetails.TripType)) {
 			
 			CebuPage.flight_Numbers2_DEP("5J 241","5J 554");
 			Thread.sleep(3000);
@@ -530,15 +569,20 @@ public class CebuAllModules extends passengersDetails{
 		
 	}
 	
-	public static void enterPassengerDetails_2() throws Exception
+	public static void enterPassengerDetails_2(Database PnrDetails) throws Exception
 
 	{
 		
 		
 		
-		String numofAdults ="3";
-		String numofChilds = "3";
-		String numofInfants = "3";
+		try{
+			passengersDetails.paxAPI(PnrDetails);
+			
+			String numofAdults =PnrDetails.Adults; 
+			String numofChilds = PnrDetails.Childs;
+			String numofInfants = PnrDetails.Infants;
+			
+			Thread.sleep(5000);
 		
 		if (numofAdults.equals("1")) {
 			//PageUtils.getScreenShot(PnrDetails.PnrId, driver);
@@ -1460,13 +1504,13 @@ public class CebuAllModules extends passengersDetails{
 		
 			
 		
-		/*	}
+			}
 		catch(Exception e)
 		{
 			PageUtils.getScreenShot(PnrDetails.PnrId,driver);
 			passengersDetails.returnStatus_fail(PnrDetails.Domain,PnrDetails.PnrId,"Document Details Element Not Found");
 			driver.quit();
-		}*/
+		}
 		
 		
 		

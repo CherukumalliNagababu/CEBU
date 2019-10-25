@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.poi.util.PngUtils;
 import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -28,12 +29,12 @@ import com.google.gson.Gson;
 
 import CebuModules.BrowserContants;
 import CebuModules.CebuAllModules;
+
 import PageObjects.BaseClass;
 import PageObjects.Database;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import junit.framework.Assert;
 
 
 
@@ -45,34 +46,40 @@ import junit.framework.Assert;
 
 
 
-public class CebuSRP {
+
+public class CebuFlow2 {
 	static WebDriver driver;
-	boolean status;
 	private Database PnrDetails;
+	boolean status;
+
 	
 	@Test
 	public void test() throws Exception {
 		
-
+		
+		
+		
+		
 		if (BrowserContants.ENV.equals("PRD")) {
 			RestAssured.baseURI = BrowserContants.PRD_API_URL;
 			System.out.println(BrowserContants.PRD_API_URL);
-			
+			System.out.println("naga");
 		} else if (BrowserContants.ENV.equals("STG")) {
 			RestAssured.baseURI = BrowserContants.STG_API_URL;
 			System.out.println(BrowserContants.STG_API_URL);
 		}
 		
-		
-		
 		RequestSpecification request = RestAssured.given();
 		request.header("Content-Type", "text/json");
-		Response response = request.get("/Get5JRoutes");
+		Response response = request.get("/GetBookingFromQueue?airline=f3");
 		System.out.println("Response body: " + response.body().asString());
 		String s=response.body().asString();
 		System.out.println(s);
 		int statusCode = response.getStatusCode();
 		System.out.println("The status code recieved: " + statusCode);
+		
+		
+		
 		
 		Gson g = new Gson();
 		Database[] mcArray = g.fromJson(s, Database[].class);
@@ -80,67 +87,78 @@ public class CebuSRP {
 		for(Database data:p){
 			try{
 				
-				
-				Date depDate=new SimpleDateFormat("dd MMM yyyy").parse(data.DepartureDate);  
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-				SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
-				
-				SimpleDateFormat MonthYear = new SimpleDateFormat("MMMM yyyy");
-				SimpleDateFormat Onlydate = new SimpleDateFormat("dd");
-				
-				String MonthFullNameandYear= MonthYear.format(depDate);
-				String OnlyDate= Onlydate.format(depDate);
-				String strDate= formatter.format(depDate);
-				String YearMDate= formatter2.format(depDate);
-				
-				System.out.println("strDate :"+strDate);
-				System.out.println("YearMonthDAte :"+YearMDate);
-				System.out.println("MonthFullNameandYear:"+MonthFullNameandYear);
-				
-				//String cebuApiUrl="https://book.cebupacificair.com/Flight/Select?o1="+data.From+"&d1="+data.To+"&o2=&d2=&dd1="+strDate +"&ADT=1&CHD=0&INF=0&inl=0&pos=cebu.us&culture=&p=";
-				String cebuApiUrl="https://book.cebupacificair.com/Flight/InternalSelect?o1=MNL&d1=MEL&o2=&d2=&dd1=2019-10-25&p=&ADT=1&CHD=0&INF=0&inl=0&s=true&mon=true";
-				
-				System.out.println("API URL"+cebuApiUrl);
-				
 				PnrDetails=data;
+				String depMonthFullNameandYear = null;
+				String depOnlyDate = null;
+				String retMonthFullNameandYear = null;
+				String retOnlyDate = null;
+				if (data.TripType.equals("OneWay")) {
+					Date depDate = new SimpleDateFormat("dd MMM yyyy").parse(data.DepartureDate);
+					SimpleDateFormat depMonthYear = new SimpleDateFormat("MMMM yyyy");
+					SimpleDateFormat depOnlydate = new SimpleDateFormat("dd");
+					depMonthFullNameandYear = depMonthYear.format(depDate);
+					depOnlyDate = depOnlydate.format(depDate);
+				} else if (data.TripType.equals("RoundTrip")) {
+					Date retDate = new SimpleDateFormat("dd MMM yyyy").parse(data.ReturnDate);
+					SimpleDateFormat retMonthYear = new SimpleDateFormat("MMMM yyyy");
+					SimpleDateFormat retOnlydate = new SimpleDateFormat("dd");
+					retMonthFullNameandYear = retMonthYear.format(retDate);
+					retOnlyDate = retOnlydate.format(retDate);
+				}
 				
-            
-		
-		
-		
+				System.out.println("depMonthFullNameandYear:"+depMonthFullNameandYear);
+				System.out.println("depOnlyDate:"+depOnlyDate);
+				System.out.println("retMonthFullNameandYear:"+retMonthFullNameandYear);
+				System.out.println("retOnlyDate:"+retOnlyDate);
+				
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--start-maximized");
 			System.setProperty("webdriver.chrome.driver", "D:\\jarfiles\\chromedriver.exe");
 			driver = new ChromeDriver(options);
 	
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			// Log.info("Implicit wait applied on the driver for 10 seconds");
+			
 			driver.manage().deleteAllCookies();
-			//driver.get(cebuApiUrl);
 			driver.get("https://partners.cebupacificair.com");
+			
 			new BaseClass(driver);
 			
+			
 			CebuAllModules.Agent_Login(PnrDetails);
-			CebuAllModules.tripType_SRP();
-			CebuAllModules.enterFromAndTo_SRP(data.From,data.To);
-			CebuAllModules.enterDateAndNumberOfPassenger_SRP(MonthFullNameandYear,OnlyDate);
-			CebuAllModules.Flight_Srp_Details(driver,PnrDetails,YearMDate,depDate);
-		
+			CebuAllModules.tripType_2(PnrDetails);
+			CebuAllModules.enterFromAndTo_2(PnrDetails);
+			CebuAllModules.enterDateAndNumberOfPassenger_2(PnrDetails,depMonthFullNameandYear,depOnlyDate,retMonthFullNameandYear,retOnlyDate);
+			CebuAllModules.FlightNumberDetails_2(PnrDetails);
+			CebuAllModules.enterPassengerDetails_2(PnrDetails);
+			CebuAllModules.extrasAddOns_2();
+			//CebuAllModules.Payment();
 			
-			driver.quit();
+			
+			
+		
 			
 		
 			}
 		
-			catch(Exception e)
-			{
+		catch(Exception e)
+		{
+
+			// pnrId, Domain, status, remarks
+
+		    CebuModules.passengersDetails.returnStatus_fail(PnrDetails.Domain,PnrDetails.PnrId,CebuAllModules.status);
+			System.out.println("PNR ID:"+PnrDetails.PnrId +" DOMAIN NAME "+PnrDetails.Domain+"  FAIL  "+""+e.getMessage());
+			System.out.println(e);
+			Thread.sleep(5000);
+			//driver.quit();
 				
-			}
+			continue;
 		}
 	}
+			
 	
 	}	
 		
+}
 
 	
 	

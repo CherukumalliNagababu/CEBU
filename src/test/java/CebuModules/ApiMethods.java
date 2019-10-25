@@ -19,7 +19,7 @@ public class ApiMethods {
 	
 	@Test
 	
-	public static void sendResults(String F,String T,String DD,List<CBFlightDetails> FlightDetails) throws InterruptedException, IOException
+	public static void sendResults(String F,String T,String Currency,String DD,List<CBFlightDetails> FlightDetails) throws InterruptedException, IOException
 	{
 	
 		
@@ -32,14 +32,13 @@ public class ApiMethods {
 			RestAssured.baseURI =BrowserContants.STG_API_URL;
 		}
 		
-		//RestAssured.baseURI =BrowserContants.STG_API_URL;
-		//RestAssured.baseURI ="http://commonrehlat.azurewebsites.net/v1/scraping";
+		
 		RequestSpecification request = RestAssured.given();
 		request.header("Content-Type", "text/json");
 		CBFlightResponse result = new CBFlightResponse();
 		result.From =F;
 		result.To = T;
-		result.Currency = "SAR";
+		result.Currency = Currency;
 		result.DepartureDate = DD;
 		result.FlightDetails = FlightDetails;
 		

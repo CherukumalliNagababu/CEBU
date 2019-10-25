@@ -52,7 +52,7 @@ public class Vpn {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			// Log.info("Implicit wait applied on the driver for 10 seconds");
 			driver.manage().deleteAllCookies();
-			driver.get("https://www.xiamenair.com/en-us/");
+			driver.get("https://book.cebupacificair.com/Flight/InternalSelect?o1=MNL&d1=MEL&o2=&d2=&dd1=2019-10-25&p=&ADT=1&CHD=0&INF=0&inl=0&s=true&mon=true");
 			new BaseClass(driver);
 			
 			
@@ -60,7 +60,7 @@ public class Vpn {
 			//Runtime.getRuntime().exec("D:\\AutoitScripts\\EnterKey.exe");
 			Thread.sleep(10000);
 		
-		List<WebElement>	li=driver.findElements(By.xpath("//ul[@class='kissy-city-select-city-content']/li"));
+		   List<WebElement>	li=driver.findElements(By.xpath("//ul[@class='selected-country']//li/a"));
 			for(WebElement e:li)
 			{
 				System.out.println(e.getText());
